@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import todoStyle from 'src/style/todo-style.scss';
-import TodoTextInput from './todo-text-input.jsx';
+import todoStyle from '../style/todo-style.scss';
+import TodoTextInput from './todo-text-input';
 
 export default class Header extends Component {
   handleSave = this.handleSave.bind(this);
@@ -23,9 +23,6 @@ export default class Header extends Component {
     );
   }
 }
-if (__DEV__) {
-  // Not needed or used in minified mode
-  Header.propTypes = {
-    addTodo: PropTypes.func.isRequired
-  };
-}
+Header.propTypes = {
+  addTodo: PropTypes.func.isRequired
+};

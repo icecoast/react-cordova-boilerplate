@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import customFont from 'src/style/custom-font.scss';
-import auth from 'src/core/auth.js';
-import * as CredentialsActions from 'src/actions/credentials-actions.js';
+import customFont from '../style/custom-font.scss';
 
 class LoginComponent extends Component {
   static defaultProps = {
@@ -32,20 +30,10 @@ class LoginComponent extends Component {
 
     const email = this._emailRef.value;
     const password = this._passwordRef.value;
-
-    auth.login(email, password, (authenticated, hint) => {
-      if (authenticated) {
-        credentialsActions.addCredentialsSucess();
-      } else {
-        credentialsActions.addCredentialsFailure(hint);
-      }
-    });
   }
   render() {
     const { credentials } = this.props;
     const { isMountedAndCreatedByRouter } = this.state;
-    const { checkingToken, loggingIn, hint } = credentials;
-    const hideLogin = (!isMountedAndCreatedByRouter) || checkingToken || loggingIn;
 
     return (
       <div style={{ position: 'fixed', left: 0, top: 0, width: '100%', height: '100%', textAlign: 'center', backgroundColor: '#F7DF1E', color: 'black' }}>
@@ -59,7 +47,7 @@ class LoginComponent extends Component {
               TodoMVC example
             </h1>
           </div>
-          <div style={{ maxHeight: hideLogin ? '0' : '195px', overflow: 'hidden', transition: 'max-height 0.5s ease-in-out' }}>
+          <div style={{ maxHeight: '0', overflow: 'hidden', transition: 'max-height 0.5s ease-in-out' }}>
             <h1 style={{ margin: '0', padding: '20px 0' }}>
               Login
             </h1>
@@ -69,7 +57,6 @@ class LoginComponent extends Component {
               </div>
               <div style={{ paddingTop: '5px' }}>
                 <input type="password" ref={ref => { this._passwordRef = ref; }} placeholder="Password" style={{ width: '100%', height: '25px' }} />
-                <div style={{ height: '1em', color: '#383838', fontWeight: 400 }}>{hint && `Hint: ${hint}`}</div>
               </div>
               <div style={{ paddingTop: '5px' }}>
                 <button type="submit" style={{ width: '100%', height: '25px' }}>
@@ -84,34 +71,27 @@ class LoginComponent extends Component {
   }
 }
 
-if (__DEV__) {
-  // Not needed or used in minified mode
-  LoginComponent.PropTypes = {
-    credentials: PropTypes.shape({
-      authenticated: PropTypes.bool,
-      checkingToken: PropTypes.bool,
-      loggingIn: PropTypes.bool,
-      hint: PropTypes.bool
-    }),
-    credentialsActions: PropTypes.shape({
-      clearCredentials: PropTypes.func.isRequired,
-      checkCredentials: PropTypes.func.isRequired,
-      checkCredentialsSucess: PropTypes.func.isRequired,
-      checkCredentialsFailure: PropTypes.func.isRequired,
-      addCredentials: PropTypes.func.isRequired,
-      addCredentialsSucess: PropTypes.func.isRequired,
-      addCredentialsFailure: PropTypes.func.isRequired
-    })
-  };
-  LoginComponent.propTypes = {
-    route: PropTypes.shape({}),
-    credentials: LoginComponent.PropTypes.credentials.isRequired,
-    credentialsActions: LoginComponent.PropTypes.credentialsActions.isRequired
-  };
-}
+LoginComponent.PropTypes = {
+  credentials: PropTypes.shape({
+    authenticated: PropTypes.bool,
+    loggingIn: PropTypes.bool,
+    hint: PropTypes.bool
+  }),
+  credentialsActions: PropTypes.shape({
+    clearCredentials: PropTypes.func.isRequired,
+    checkCredentials: PropTypes.func.isRequired,
+    checkCredentialsSucess: PropTypes.func.isRequired,
+    checkCredentialsFailure: PropTypes.func.isRequired,
+    addCredentials: PropTypes.func.isRequired,
+    addCredentialsSucess: PropTypes.func.isRequired,
+    addCredentialsFailure: PropTypes.func.isRequired
+  })
+};
+LoginComponent.propTypes = {
+  route: PropTypes.shape({}),
+  credentials: LoginComponent.PropTypes.credentials.isRequired,
+  credentialsActions: LoginComponent.PropTypes.credentialsActions.isRequired
+};
 
-const Login = connect(state => ({ credentials: state.credentials }), dispatch => ({
-  credentialsActions: bindActionCreators(CredentialsActions, dispatch)
-}))(LoginComponent);
 
-export default Login;
+export default LoginComponent;

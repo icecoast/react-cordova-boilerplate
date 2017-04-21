@@ -2,45 +2,24 @@ import React, { Component } from 'react';
 import { Router, Route, hashHistory as history } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import auth from 'src/core/auth.js';
-import * as CredentialsActions from 'src/actions/credentials-actions.js';
-import Login from './login.jsx';
-import TodoApp from './todo-app.jsx';
+import Login from './login';
+import TodoApp from './todo-app';
 
 class AppRouteComponent extends Component {
   componentWillMount() {
     this.checkAuth = this.checkAuth.bind(this);
     this.handleRedirect = this.handleRedirect.bind(this);
 
-    this._authenticated = this.props.credentials.authenticated;
+    this._authenticated = true;
     this._isCheckingInitialLogIn = true;
     this._shouldRouterUpdate = true;
-
-    const { credentialsActions } = this.props;
-    credentialsActions.checkCredentials();
-
-    const handleLoggedIn = authenticated => {
-      this._isCheckingInitialLogIn = false;
-      if (authenticated) {
-        credentialsActions.checkCredentialsSucess();
-      } else {
-        setTimeout(() => {
-          credentialsActions.checkCredentialsFailure();
-        });
-      }
-    };
-
-    // If authenticated has value, that means we got answer if the user is logged in.
-    // If authenticated is undefined that means callback will be called when finishes checking if logged in
-    const authenticated = auth.loggedIn(handleLoggedIn);
-    if (authenticated !== undefined) { handleLoggedIn(authenticated); }
   }
   componentDidMount() {
     this.checkIfToStopAppRouterRenders();
   }
   shouldComponentUpdate(nextProps) {
     // Each time props are about to update - switch url if needed
-    this._authenticated = nextProps.credentials.authenticated;
+    this._authenticated = true;
     if (this.props.credentials.authenticated !== this._authenticated) {
       history.push('/');
     }
@@ -79,16 +58,8 @@ class AppRouteComponent extends Component {
   }
 }
 
-if (__DEV__) {
-  // Not needed or used in minified mode
-  AppRouteComponent.propTypes = {
-    credentials: Login.PropTypes.credentials.isRequired,
-    credentialsActions: Login.PropTypes.credentialsActions.isRequired
-  };
-}
+AppRouteComponent.propTypes = {
+  credentials: Login.PropTypes.credentials.isRequired
+};
 
-const AppRoute = connect(state => ({ credentials: state.credentials }), dispatch => ({
-  credentialsActions: bindActionCreators(CredentialsActions, dispatch)
-}))(AppRouteComponent);
-
-export default AppRoute;
+export default AppRouteComponent;

@@ -39,7 +39,7 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
     entry: isTest ? undefined : {
       [`app${isProd ? '.min' : ''}`]: (
         isWebpackDevServer ? [`webpack-dev-server/client?http://localhost:${port}`, 'webpack/hot/dev-server'] : []
-      ).concat(path.join(rootPath, 'src', 'entry-points', isClientBuild ? 'client.jsx' : 'server.jsx'))
+      ).concat(path.join(rootPath, 'src', 'entry-points', isClientBuild ? 'client.js' : 'server.js'))
     },
     output: isTest ? undefined : {
       path: path.join(rootPath, 'www'),
@@ -98,19 +98,6 @@ const getWebpackConfig = (options = ({}), privateOptions = ({})) => {
       rules: [
         {
           test: /\.js$/,
-          exclude: /node_modules/,
-          use: [
-            {
-              loader: 'babel-loader',
-              options: {
-                presets: ['es2015', 'stage-2'],
-                plugins: ['transform-runtime']
-              }
-            }
-          ]
-        },
-        {
-          test: /\.jsx$/,
           exclude: /node_modules/,
           use: [
             {

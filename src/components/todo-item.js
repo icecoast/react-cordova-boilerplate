@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import todoStyle from 'src/style/todo-style.scss';
-import TodoTextInput from './todo-text-input.jsx';
+import todoStyle from '../style/todo-style.scss';
+import TodoTextInput from './todo-text-input';
 
 export default class TodoItem extends Component {
   componentWillMount() {
@@ -65,16 +65,13 @@ export default class TodoItem extends Component {
     );
   }
 }
-if (__DEV__) {
-  // Not needed or used in minified mode
-  TodoItem.propTypes = {
-    todo: PropTypes.shape({
-      id: PropTypes.string,
-      text: PropTypes.string,
-      marked: PropTypes.bool
-    }).isRequired,
-    editTodo: PropTypes.func.isRequired,
-    deleteTodo: PropTypes.func.isRequired,
-    markTodo: PropTypes.func.isRequired
-  };
-}
+TodoItem.propTypes = {
+  todo: PropTypes.shape({
+    id: PropTypes.string,
+    text: PropTypes.string,
+    marked: PropTypes.bool
+  }).isRequired,
+  editTodo: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+  markTodo: PropTypes.func.isRequired
+};

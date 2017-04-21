@@ -40,7 +40,24 @@
     "test:coverage:watch": "echo \"Error: `nyc` doesn't support watch mode\" && exit 1",
     "test:watch:coverage": "npm run test:coverage:watch"
   },
-  "dependencies": {},
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "dateformat": "^2.0.0",
+    "google-map-react": "^0.24.0",
+    "google-maps-react": "^1.0.19",
+    "history": "^4.6.1",
+    "mobx": "^3.1.9",
+    "mobx-react": "^4.1.8",
+    "mongodb-uri": "^0.9.7",
+    "mongoose": "^4.9.1",
+    "react": "^15.4.2",
+    "react-bootstrap": "^0.30.10",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.4",
+    "react-router": "^4.1.1",
+    "react-router-bootstrap": "^0.24.2",
+    "react-router-dom": "^4.1.1"
+  },
   "devDependencies": {
     "babel-core": "^6.11.4",
     "babel-eslint": "^7.1.1",
@@ -77,10 +94,6 @@
     "nyc": "^10.2.0",
     "prop-types": "^15.5.8",
     "radium": "^0.18.1",
-    "react": "^15.5.0",
-    "react-dom": "^15.5.0",
-    "react-redux": "^5.0.2",
-    "react-router": "^3.0.2",
     "redux": "^3.5.2",
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",
@@ -93,8 +106,8 @@
     "style-loader": "^0.14.0",
     "to-string-loader": "^1.1.5",
     "url-loader": "^0.5.7",
-    "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0",
+    "webpack": "^2.3.1",
+    "webpack-dev-server": "^2.3.1",
     "webpack-node-externals": "^1.5.4",
     "whatwg-fetch": "^2.0.1"
   }

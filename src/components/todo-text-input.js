@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import todoStyle from 'src/style/todo-style.scss';
+import todoStyle from '../style/todo-style.scss';
 
 export default class TodoTextInput extends Component {
   static defaultProps = {
@@ -56,13 +56,10 @@ export default class TodoTextInput extends Component {
     );
   }
 }
-if (__DEV__) {
-  // Not needed or used in minified mode
-  TodoTextInput.propTypes = {
-    onSave: PropTypes.func.isRequired,
-    defaultText: PropTypes.string,
-    placeholder: PropTypes.string,
-    editing: PropTypes.bool,
-    newTodo: PropTypes.bool
-  };
-}
+TodoTextInput.propTypes = {
+  onSave: PropTypes.func.isRequired,
+  defaultText: PropTypes.string,
+  placeholder: PropTypes.string,
+  editing: PropTypes.bool,
+  newTodo: PropTypes.bool
+};

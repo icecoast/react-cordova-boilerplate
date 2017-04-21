@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from 'src/containers/app.jsx';
-import AppRoute from 'src/containers/app-route.jsx';
+import App from '../containers/app';
+import AppRoute from '../containers/app-route';
 
 ReactDOM.render(
   <App>
